@@ -53,14 +53,14 @@ public:
         const chrono::milliseconds timeout) {
 
             {
-                TInput* ptr = static_cast<TInput*>(std::malloc(sizeof(TInput)));
+                auto* ptr = static_cast<TInput*>(std::malloc(sizeof(TInput)));
                 *ptr = input;
                 inputDestructor = [=] { ptr->~TInput(); };
                 inputPtr = ptr;
             }
 
             {
-                TChanges* ptr = static_cast<TChanges*>(std::malloc(sizeof(TChanges)));
+                auto* ptr = static_cast<TChanges*>(std::malloc(sizeof(TChanges)));
                 *ptr = {};
                 changesDestructor = [=] { ptr->~TChanges(); };
                 changesPtr = ptr;

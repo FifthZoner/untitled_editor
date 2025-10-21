@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "../options.hpp"
+#include "../settings.hpp"
 
 using namespace std::chrono_literals;
 
@@ -101,8 +101,8 @@ void TaskManagerFunction(TaskManager* manager) {
     }
 }
 
-TaskManager::TaskManager(const Options& options) {
-    runners.resize(options.taskRunnerAmount);
+TaskManager::TaskManager(const Settings& settings) {
+    runners.resize(settings.taskRunnerAmount);
     for (auto& n : runners)
         n = std::make_unique<TaskRunner>();
 

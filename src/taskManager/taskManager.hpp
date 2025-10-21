@@ -9,7 +9,7 @@
 
 #include "taskRunner.hpp"
 
-struct Options;
+struct Settings;
 
 class TaskManager {
     std::vector<Task> pendingTasks{};
@@ -20,7 +20,7 @@ class TaskManager {
     std::mutex stackMutex{};
 
 public:
-    explicit TaskManager(const Options& options);
+    explicit TaskManager(const Settings& settings);
 
     void RunTask(Task&& task);
 

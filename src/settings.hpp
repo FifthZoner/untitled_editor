@@ -9,7 +9,7 @@
 #include <vector>
 #include <cstdint>
 
-struct Options {
+struct Settings {
     // general stuff
     std::string executablePath{};
     std::vector<std::string> modulePaths{};

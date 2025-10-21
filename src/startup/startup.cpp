@@ -19,12 +19,12 @@ void ShowHelpScreen() {
     std::cout << "overrideModulesPath  - sets skips adding default modules path\n";
 }
 
-std::optional<Error> HandlerHelp(Options& options, std::string value) {
+std::optional<Error> HandlerHelp(Settings& options, std::string value) {
     ShowHelpScreen();
     return Error(nullptr);
 }
 
-std::optional<Error> HandlerTasks(Options& options, std::string value) {
+std::optional<Error> HandlerTasks(Settings& options, std::string value) {
     if (value.empty())
         return Error("Task amount must be specified!");
     for (auto& n : value)
@@ -37,7 +37,7 @@ std::optional<Error> HandlerTasks(Options& options, std::string value) {
     return std::nullopt;
 }
 
-std::optional<Error> HandlerAddModuleDir(Options& options, std::string value) {
+std::optional<Error> HandlerAddModuleDir(Settings& options, std::string value) {
     if (value.empty())
         return Error("Task amount must be specified!");
     if (not fs::exists(value))
@@ -48,12 +48,12 @@ std::optional<Error> HandlerAddModuleDir(Options& options, std::string value) {
     return std::nullopt;
 }
 
-std::optional<Error> HandlerOverrideModulesPath(Options& options, std::string value) {
+std::optional<Error> HandlerOverrideModulesPath(Settings& options, std::string value) {
     options.overrideModulesPath = true;
     return std::nullopt;
 }
 
-std::unordered_map<std::string, std::function<std::optional<Error>(Options& options, std::string)>> argumentHandlers{
+std::unordered_map<std::string, std::function<std::optional<Error>(Settings& options, std::string)>> argumentHandlers{
     {"h", HandlerHelp},
     {"help", HandlerHelp},
     {"tasks", HandlerTasks},
@@ -62,7 +62,7 @@ std::unordered_map<std::string, std::function<std::optional<Error>(Options& opti
     {"overrideModulesPath", HandlerOverrideModulesPath}
 };
 
-std::optional<Error> ResolvePaths(Options& options, const char* pathArg) {
+std::optional<Error> ResolvePaths(Settings& options, const char* pathArg) {
     options.executablePath = pathArg;
 
     if (not options.overrideModulesPath)
@@ -76,9 +76,9 @@ std::optional<Error> ResolvePaths(Options& options, const char* pathArg) {
     return std::nullopt;
 }
 
-std::expected<Options, Error> LoadOptions(int argc, char** argv) {
+std::expected<Settings, Error> LoadOptions(int argc, char** argv) {
 
-    Options options;
+    Settings options;
 
     for (
 #ifdef TARGET_UNIX

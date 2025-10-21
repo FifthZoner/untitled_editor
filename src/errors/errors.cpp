@@ -44,6 +44,10 @@ bool Error::ok() const {
     return _errorPtr == nullptr or *_errorPtr == ERROR_OK;
 }
 
+std::ostream& operator<<(std::ostream& out, const Error& error) {
+    return out << error.message();
+}
+
 void Warning(std::string message) {
     std::cout << "Warning: " << message << "\n";
 }

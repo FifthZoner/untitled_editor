@@ -33,6 +33,8 @@ public:
     [[nodiscard]] bool ok() const;
 };
 
+std::ostream& operator << (std::ostream& out, const Error& error);
+
 void Warning(std::string message);
 void Warning(const char* message);
 
